@@ -17,7 +17,7 @@ Aplicação - desenvolvida na NextLevelWeek 14 - que possibilita realizar upload
 
 ## Run Locally
 
-Clone the project
+Clone this project, you'll also need the backend: https://github.com/vinigouvea16/upload-ai-api
 
 ```bash
   git clone https://github.com/vinigouvea16/nlw14-upload-ai
