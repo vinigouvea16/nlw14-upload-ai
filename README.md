@@ -4,22 +4,47 @@
 
 <p align="center">
   <img src="https://img.shields.io/static/v1?label=Rocketseat&message=Education&color=8257e5&labelColor=202024" alt="Rocketseat Project" />
-  <a href="LICENSE"><img  src="https://img.shields.io/static/v1?label=License&message=MIT&color=8257e5&labelColor=202024" alt="License"></a>
 </p>
 
 ## 💻 Projeto
 
-Aplicação que possibilita realizar upload de videos e por meio de IA, criar automaticamente títulos chamativos e descrições com um boa indexação.
-
-## 📝 Licença
-
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
+Aplicação - desenvolvida na NextLevelWeek 14 - que possibilita realizar upload de vídeos e por meio de IA criar automaticamente títulos chamativos e descrições com uma boa indexação, além da liberdade de estipular vários prompts possibilitando uma infinidade de resultados através do uso da API da OpenAI integrada nela.
 
 <p align="center">
-  Feito com 💜 by Rocketseat
+  Feito com 💜 by <a href="https://www.rocketseat.com.br/">Rocketseat </a>
 </p>
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/vinigouvea16/nlw14-upload-ai
+```
+
+Go to the project directory
+
+```bash
+  cd upload-ai
+```
+
+Install dependencies
+
+```bash
+  npm install
+  npm install -D tailwindcss postcss autoprefixer
+  npx tailwindcss init -p
+
+  
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
 
 <!--START_SECTION:footer-->
 
