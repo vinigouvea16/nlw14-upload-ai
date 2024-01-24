@@ -1,12 +1,12 @@
+import { api } from "@/lib/axios";
+import { getFFmpeg } from "@/lib/ffmpeg";
+import { fetchFile } from '@ffmpeg/util';
 import { Label } from "@radix-ui/react-label";
 import { Separator } from "@radix-ui/react-separator";
 import { FileVideo, Upload } from "lucide-react";
+import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
-import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
-import { getFFmpeg } from "@/lib/ffmpeg";
-import { fetchFile } from '@ffmpeg/util';
-import { api } from "@/lib/axios";
 
 type Status = 'waiting' | 'converting' | 'uploading' | 'generating' | 'success'
 const statusMessages = {
@@ -118,7 +118,7 @@ export function VideoInputForm(props: VideoInputFormProps){
         //usaremos um fragment para que a div nao comprometa o layout da pagina
         <>
         <FileVideo /> 
-        Selecione um vídeo
+        Select a video
         </>
       )}
     </label>
@@ -126,13 +126,13 @@ export function VideoInputForm(props: VideoInputFormProps){
     <input type="file" id="video" accept="video/mp4" className="sr-only" onChange={handleFileSelected}/>
     <Separator />
     <div className="space-y-2">
-      <Label htmlFor="transcription prompt">Prompt de transcrição</Label>
+      <Label htmlFor="transcription prompt">Transcription prompt</Label>
       <Textarea 
       disabled={status !== 'waiting'}
       ref={promptInputRef}
       id="transcription_prompt" 
       className="h-20 leading-relaxed resize-none"
-      placeholder="Inclua palavras chaves mencionadas no vídeo separadas por vírgula (,)" />
+      placeholder="Include keywords mentioned in the video separated by commas (,)" />
     </div>
     <Button 
     data-success={status === 'success'}
@@ -142,7 +142,7 @@ export function VideoInputForm(props: VideoInputFormProps){
     >
      {status === 'waiting'? (
       <>
-      Carregar vídeo
+      Upload video
       <Upload className="w-4 h-4 ml-2"/>
       </>
      ): statusMessages[status]}

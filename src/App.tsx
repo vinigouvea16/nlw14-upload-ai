@@ -1,14 +1,14 @@
-import { Github, Wand2 } from "lucide-react"
+import { useCompletion } from 'ai/react';
+import { Github, Wand2 } from "lucide-react";
+import { useState } from "react";
+import { PromptSelect } from "./components/prompt-select.tsx";
 import { Button } from "./components/ui/button";
-import { Separator } from "./components/ui/separator";
-import { Textarea } from "./components/ui/textarea";
 import { Label } from "./components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
+import { Separator } from "./components/ui/separator";
 import { Slider } from "./components/ui/slider";
-import  {VideoInputForm}  from "./components/video-input-form.tsx";
-import { PromptSelect } from "./components/prompt-select.tsx";
-import { useState } from "react";
-import {useCompletion} from 'ai/react'
+import { Textarea } from "./components/ui/textarea";
+import { VideoInputForm } from "./components/video-input-form.tsx";
 export function App() {
   const [temperature, setTemperature] = useState(0.5)
   const [videoId, setVideoId] = useState<string | null>(null)
@@ -38,7 +38,7 @@ export function App() {
       
       <div className="flex items-center gap-3">
         <span className="text-sm text-muted-foreground">
-          Desenvolvido com 💜 no NLW da Rocketseat
+          Developed with 💜 during Rocketseat's NLW
           </span>
 
           <Separator orientation="vertical" className="h-6"/>
@@ -54,20 +54,20 @@ export function App() {
         <div className="grid grid-rows-2 gap-4 flex-1">
         <Textarea
         className="resize-none p-4 leading-relaxed"
-        placeholder="Inclua o prompt para a IA..."
+        placeholder="Insert AI's prompt..."
         value={input}
         onChange={handleInputChange}
         />
         <Textarea
         className="resize-none p-4 leading-relaxed"
-        placeholder="Resultado gerado pela IA" 
+        placeholder="Result created by AI" 
         readOnly
         value={completion}
         />
         </div>
 
         <p className="text-sm text-muted-foreground">
-          Lembre-se: você pode utilizar a variável <code className="text-green-300">{'{transcription}'}</code> no seu prompt para adicionar o conteúdo da transcrição do video selecionado.
+          Remember: You can use the variable <code className="text-green-300">{'{transcription}'}</code> on your prompt to add the selected video transcription content.
         </p>
       </div>
       <aside className="w-80 space-y-6">
@@ -82,7 +82,7 @@ export function App() {
           </div>
 
           <div className="space-y-2">
-            <Label>Modelo</Label>
+            <Label>Model</Label>
             <Select disabled defaultValue="gpt3.5">
               <SelectTrigger>
                 <SelectValue />
@@ -92,14 +92,14 @@ export function App() {
               </SelectContent>
             </Select>
             <span className="block text-xs text-muted-foreground italic">
-              Você poderá customizar essa opção em breve
+             You will be able to customize this option soon
               </span>
           </div>
 
           <Separator />
 
           <div className="space-y-4">
-            <Label>Temperatura</Label>
+            <Label>Temperature</Label>
             <Slider 
               min={0}
               max={1}
@@ -108,12 +108,12 @@ export function App() {
               onValueChange={value =>setTemperature(value[0])}
             />
             <span className="block text-xs text-muted-foreground italic leading-relaxed">
-              Valores mais altos tendem a deixar o resultado mais criativo e com possíveis erros.
+            Higher values tend to make the result more creative and may introduce potential errors.
               </span>
           </div>
           <Separator />
           <Button disabled={isLoading} type="submit" className="w-full">
-            Executar
+            Execute
             <Wand2 className="w-4 h-4 ml-2" />
           </Button>
         </form>
