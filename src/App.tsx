@@ -9,7 +9,7 @@ import { Separator } from "./components/ui/separator";
 import { Slider } from "./components/ui/slider";
 import { Textarea } from "./components/ui/textarea";
 import { VideoInputForm } from "./components/video-input-form.tsx";
-export function App() {
+export default function App() {
   const [temperature, setTemperature] = useState(0.5)
   const [videoId, setVideoId] = useState<string | null>(null)
 
