@@ -77,7 +77,6 @@ export function VideoInputForm(props: VideoInputFormProps){
     event.preventDefault()
 
     const prompt = promptInputRef.current?.value
-
     if (!videoFile) {
       return
     }

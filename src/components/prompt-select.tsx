@@ -12,11 +12,6 @@ interface PromptSelectProps{
 }
 export function PromptSelect(props: PromptSelectProps){
   const [prompts, setPrompts] = useState<Prompt[] | null>(null)
-  useEffect(() => {
-    api.get('/prompts').then(response=>{
-      setPrompts(response.data)
-    })
-  }, [])
   function handlePromptSelected(promptId: string){
     const selectedPrompt = prompts?.find(prompt => prompt.id === promptId)
     if(!selectedPrompt){
@@ -24,6 +19,14 @@ export function PromptSelect(props: PromptSelectProps){
     }
     props.onPromptSelected(selectedPrompt.template)
   }
+  useEffect(() => {
+    const getData = async () => {
+     const response = await api.get('/prompts')
+     setPrompts(response.data)
+     console.log(response)
+    }
+    getData()
+  }, [])
   return (
     <Select onValueChange={handlePromptSelected}>
     <SelectTrigger>
