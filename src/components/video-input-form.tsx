@@ -22,7 +22,6 @@ interface VideoInputFormProps{
 
 export function VideoInputForm(props: VideoInputFormProps){
   const [videoFile, setVideoFile] = useState<File | null>(null)
-  //<> generic -> aqui dentro desse estado será armazenado OU um File OU nulo (no primeiro momento será o nulo)
   const [status, setStatus] = useState<Status>('waiting')
   const promptInputRef = useRef<HTMLTextAreaElement>(null)
   
@@ -37,39 +36,47 @@ export function VideoInputForm(props: VideoInputFormProps){
     
     setVideoFile(selectedFile)
   }
-  async function convertVideoToAudio(video: File){
+  
+    async function convertVideoToAudio(video: File) {
     console.log('Conversion started.')
 
+    // FFmpeg roda no browswer poe WebAssembly portanto só arquivos pequenos
     const ffmpeg = await getFFmpeg()
 
-    await ffmpeg?.writeFile('input.mp4', await fetchFile(video))
-    ffmpeg.on('log', log=>{
+    await ffmpeg.writeFile('input.mp4', await fetchFile(video))
+
+    ffmpeg.on('log', (log) => {
       console.log(log)
     })
-    ffmpeg?.on('progress', progress => {
+
+    ffmpeg.on('progress', (progress) => {
       console.log('Convert progress: ' + Math.round(progress.progress * 100))
     })
 
+    // -i input.mp4         -> input file in FFmpeg's in-memory file system
+    // -map 0:a             -> keep only the audio stream(s) of input 0, dropping the video
+    // -b:a 20k             -> 20 kbps audio bitrate: enough for speech and keeps the file small
+    // -acodec libmp3lame   -> encode as MP3, a format Whisper accepts
     await ffmpeg.exec([
-       '-i',
-       'input.mp4',
-       '-map',
-       '0:a', 
-       '-b:a',
-       '20k',
-       '-acodec',
-       'libmp3lame',
-       'output.mp3'
-       //copy this array and ask chatGPT for this example explanation for further understanding 
+      '-i',
+      'input.mp4',
+      '-map',
+      '0:a',
+      '-b:a',
+      '20k',
+      '-acodec',
+      'libmp3lame',
+      'output.mp3',
     ])
-    //further understanding also applies for the following variables, not even Diego knows how to explain it
+
+    // Read the result back from FFmpeg's virtual file system and wrap it in a File for upload
     const data = await ffmpeg.readFile('output.mp3')
-    const audioFileBlob = new Blob([data], {type: 'audio/mpeg'})
-    const audioFile = new File([audioFileBlob], 'audio.mp3',{
+    const audioFileBlob = new Blob([data], { type: 'audio/mpeg' })
+    const audioFile = new File([audioFileBlob], 'audio.mp3', {
       type: 'audio/mpeg',
     })
 
-    console.log('Conversion finished')
+    console.log('Conversion finished.')
     return audioFile
   }
 
